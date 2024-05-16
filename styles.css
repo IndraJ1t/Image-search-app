@@ -86,7 +86,11 @@ form {
 .search-result:hover a {
     background-color: rgba(0, 0, 0, 0.1);
 }
-
+.form-input{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
 #show-more-button {
     background-color: #008cba;
     border: none;
@@ -109,11 +113,22 @@ form {
     .search-result {
         width: calc(50% - 20px);
     }
+    .form-input{
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .heading{
+        font-size: 30px;
+    }
 }
 
 @media screen and (max-width: 480px) {
     .search-result {
         width: 100%;
+    }
+    .heading{
+        font-size: 25px;
     }
 
     form {
@@ -123,5 +138,10 @@ form {
     #search-input {
         width: 100%;
         margin-bottom: 10px;
+    }
+    .form-input{
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
