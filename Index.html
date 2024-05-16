@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Search App</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <h1>Image Search App</h1>
+    <form>
+        <input type="text" id="search-input" placeholder="Search for images..." />
+        <button id="search-button">Search</button>
+    </form>
+    <div class="search-results">
+        <!-- Images will be dynamically added here -->
+    </div>
+    <button id="show-more-button">Show more</button>
+    <script src="index.js"></script>
+    <script>
+        // Array of demo keywords
+        const demoKeywords = [
+            'dog',
+            'cat',
+            'ice cream',
+            'anime girls',
+            'cake',
+            'fruits',
+            'beach',
+            'mountains',
+            'architecture',
+            'coffee',
+            'books',
+            'technology',
+            'music',
+            'flowers',
+            'space',
+            'sunset',
+            'sports',
+            'wildlife',
+            'vintage',
+            'abstract',
+            'travel',
+            'fitness',
+            'party',
+            'friends',
+            'family',
+            'hiking',
+            'meditation',
+            'movies',
+        ];
+
+
+        // Function to load demo images on page load
+        window.onload = () => {
+            const searchResultsEl = document.querySelector('.search-results');
+
+            // Loop through each demo keyword and fetch images
+            demoKeywords.forEach(keyword => {
+                fetchImages(keyword, searchResultsEl);
+            });
+        };
+
+        // Function to fetch images based on keyword
+        async function fetchImages(keyword, container) {
+            const accessKey = "KjEhBGN6nFB1O5mbaYgXRoJ10ARERrMLXp56NuyQDqY";//RZEIOVfPhS7vMLkFdd2TSKGFBS4o9_FmcV1Nje3FSjw
+            const url = `https://api.unsplash.com/search/photos?page=1&query=${keyword}&client_id=${accessKey}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // Display first image for each keyword
+                if (data.results.length > 0) {
+                    const result = data.results[0];
+                    const imageWrapper = document.createElement("div");
+                    imageWrapper.classList.add("search-result");
+                    const image = document.createElement("img");
+                    image.src = result.urls.small;
+                    image.alt = result.alt_description || keyword;
+                    const imageLink = document.createElement("a");
+                    imageLink.href = result.links.html;
+                    imageLink.target = "_blank";
+                    imageLink.textContent = result.alt_description || keyword;
+
+                    imageWrapper.appendChild(image);
+                    imageWrapper.appendChild(imageLink);
+                    container.appendChild(imageWrapper);
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>
